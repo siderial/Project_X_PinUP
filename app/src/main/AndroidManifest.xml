@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.undine.project_ooad" >
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -19,13 +21,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".Search" >
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.example.undine.project_ooad.MainActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.undine.project_ooad.MainActivity" />
         </activity>
         <activity
             android:name=".AddEvent"
-            android:label="@string/title_activity_add_event">
-        <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.example.undine.project_ooad.MainActivity"/>
-
+            android:label="@string/title_activity_add_event" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.undine.project_ooad.MainActivity" />
+        </activity>
+        <activity android:name=".ChangePassword" >
         </activity>
     </application>
 

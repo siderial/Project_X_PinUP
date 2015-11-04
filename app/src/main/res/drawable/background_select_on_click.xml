@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Pressed tab -->
+    <item
+        android:drawable="@color/lightGray"
+        android:state_pressed="true" />
+    <!-- Selected tab (using d-pad) -->
+    <item
+        android:drawable="@color/colorTextPrimary"
+        android:state_pressed="false"
+       />
+</selector>

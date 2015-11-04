@@ -1,14 +1,152 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.undine.project_ooad.ManageAccount">
+    android:orientation="vertical"
+    tools:context="com.example.undine.project_ooad.ManageAccount"
+    android:weightSum="1">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorTextPrimary"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="16dp"
+
+            >
+
+            <ImageView
+                android:id="@+id/user_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.76"
+                android:layout_margin="1dp"
+                android:src="@mipmap/ic_untitle"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.32">
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Aria  Undine"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <TextView
+                    android:id="@+id/user_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I'm Tester.T^T 0__________________________0 Heyyyyyyyyyyyyyy"
+                    android:padding="8dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorDivider"
+                  />
+
+
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"
+          />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivider"
+           />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Manage"
-        android:textSize="30sp" />
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorTextPrimary"
+        android:orientation="vertical"
+        >
 
-</FrameLayout>
+
+        <TextView
+            android:id="@+id/go_my_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_collection_black"
+            android:gravity="center_vertical"
+            android:text="My Events"
+            android:textSize="16sp"
+            android:padding="16dp"
+
+           />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/lightGray"/>
+
+        <TextView
+            android:id="@+id/go_delete_account"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_delete_acc_black"
+            android:gravity="center_vertical"
+            android:text="Delete Account"
+            android:textSize="16sp"
+            android:padding="16dp"
+
+           />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/lightGray"/>
+
+        <TextView
+            android:id="@+id/go_log_out"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_log_out_black"
+            android:gravity="center_vertical"
+            android:text="Log Out"
+            android:textSize="16sp"
+            android:padding="16dp"
+         />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/lightGray"/>
+
+        <TextView
+            android:id="@+id/go_help"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_help_black"
+            android:gravity="center_vertical"
+            android:text="Help"
+            android:textSize="16sp"
+            android:padding="16dp"
+           />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/lightGray"/>
+
+
+    </LinearLayout>
+</LinearLayout>
