@@ -1,77 +1,72 @@
 package com.example.undine.project_ooad;
 
-
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
-import java.io.Reader;
-
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 /**
- * A simple {@link Fragment} subclass.
+ * Created by Administrator on 3/11/2558.
  */
-public class NewFeed extends Fragment {
-
-
-    public NewFeed() {
-        // Required empty public constructor
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView=inflater.inflate(R.layout.fragment_new_feed, container, false);
-        mListView = (ListView) rootView.findViewById(R.id.listView);
-        ArrayList<Event> listContact ;
-      //  ListView lv = (ListView)rootView.findViewById(R.id.listView);
-        //lv.setAdapter(new CustomAdapter(getActivity(), listContact));
-        new SimpleTask().execute(URL + "getTopicAll");
-
-
-        return rootView;
-
-    }
-
+public class EventJson extends AppCompatActivity {
     public static final String URL = "http://203.151.92.175:8080/";
     private ListView mListView;
     private CustomAdapter mAdapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
+        setContentView(R.layout.activity_main);
+
+        mListView = (ListView) findViewById(R.id.listView);
 
 
-
-       // new SimpleTask().execute(URL + "getTopicAll");
+        new SimpleTask().execute(URL + "getTopicAll");
     }
 
     private class SimpleTask extends AsyncTask<String, Void, String> {
@@ -83,8 +78,6 @@ public class NewFeed extends Fragment {
 
         protected String doInBackground(String... urls) {
             String result = "";
-            IOException ee;
-            Exception ex;
             try {
 
                 HttpGet httpGet = new HttpGet(urls[0]);
@@ -107,9 +100,7 @@ public class NewFeed extends Fragment {
             } catch (ClientProtocolException e) {
 
             } catch (IOException e) {
-                ee=e;
-            }catch (Exception e){
-                ex=e;
+
             }
             return result;
         }
@@ -159,8 +150,7 @@ public class NewFeed extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }*/
-        mAdapter = new CustomAdapter(getActivity(), events);
+        mAdapter = new CustomAdapter(this, events);
         mListView.setAdapter(mAdapter);
     }
-
 }
