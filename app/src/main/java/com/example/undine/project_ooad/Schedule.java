@@ -45,7 +45,7 @@ public class Schedule extends Fragment {
     String monthString;
     String yearString;
     String forBackend;
-    String parameter;
+   public static String parameter;
 
 
     public Schedule() {
