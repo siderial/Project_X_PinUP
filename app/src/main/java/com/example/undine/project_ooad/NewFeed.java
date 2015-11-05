@@ -1,14 +1,17 @@
 package com.example.undine.project_ooad;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -27,7 +30,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import java.io.Reader;
@@ -52,11 +57,19 @@ public class NewFeed extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView=inflater.inflate(R.layout.fragment_new_feed, container, false);
-       /* mListView = (ListView) rootView.findViewById(R.id.listView);
+        final View rootView=inflater.inflate(R.layout.fragment_new_feed, container, false);
+         mListView = (ListView) rootView.findViewById(R.id.listView);
         ArrayList<Event> listContact ;
         new SimpleTask().execute(URL + "getTopicAll");
-           */
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                startActivity(new Intent(rootView.getContext(),ChangePassword.class));
+            }
+        });
+
 
         return rootView;
 
@@ -116,14 +129,24 @@ public class NewFeed extends Fragment {
         }
     }
 
-    private void showData(String jsonString) {
+    private void showData(String jsonString)  {
         Gson gson = new Gson();
         JsonParser parser = new JsonParser();
         JsonArray jArray = parser.parse(jsonString).getAsJsonArray();
         ArrayList<Event> events = new ArrayList<Event>();
 
         for (JsonElement obj : jArray){
-            Event event = gson.fromJson(obj,Event.class);
+            Event event = gson.fromJson(obj, Event.class);
+            String data = event.description;
+            byte[] test = data.getBytes();
+            try{
+                String thai = new String(test, "UTF-8");
+                Log.d("aa",thai);
+            }catch (UnsupportedEncodingException e){
+                Log.d("bb","vv");
+            }
+            //String x= URLEncoder.encode(event.getDescription(),"UTF-8");
+            //Log.d("ดีจ้า",x);
             events.add(event);
         }
 
