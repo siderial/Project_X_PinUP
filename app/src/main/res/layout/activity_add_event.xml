@@ -67,7 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="15dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:id="@+id/lineLayoutAddEvent">
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
@@ -233,11 +234,16 @@
                 android:layout_marginLeft="60dp"
                 android:layout_height="match_parent">
 
+                <RadioGroup
+                    android:id="@+id/typeRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Private"
                     android:textColor="#01579B"
+
                     android:id="@+id/radioButton" />
 
                 <RadioButton
@@ -246,7 +252,9 @@
                     android:text="Public"
                     android:textColor="#01579B"
                     android:layout_marginLeft="50dp"
-                    android:id="@+id/radioButton2" />
+                    android:id="@+id/radioButton2" /> >
+
+            </RadioGroup>
             </LinearLayout>
 
             <LinearLayout
@@ -258,7 +266,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textLo"
+                    android:id="@+id/tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="2dp"
@@ -267,7 +275,7 @@
                     android:textSize="20dp" />
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/editText3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
