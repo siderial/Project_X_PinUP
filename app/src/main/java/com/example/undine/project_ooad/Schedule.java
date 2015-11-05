@@ -1,7 +1,10 @@
 package com.example.undine.project_ooad;
 
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -18,6 +21,12 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -36,7 +45,7 @@ public class Schedule extends Fragment {
     String monthString;
     String yearString;
     String forBackend;
-
+    String parameter;
 
 
     public Schedule() {
@@ -63,13 +72,14 @@ public class Schedule extends Fragment {
                                  Toast.LENGTH_LONG).show();
 
 
-
                         startActivity(new Intent(view.getContext(), ChangePassword.class));
                      }
                  });
 
                 materialCalendarView.setArrowColor(getResources().getColor(R.color.purpleA100));
 
+        parameter="accountID=123&date="+yearString+monthString+dayString;
+        new HttpTask().execute();
 
         return view;
 
@@ -88,4 +98,68 @@ public class Schedule extends Fragment {
     }
 
 
+    //------------------------------------------Send Post-----------------------------------
+
+    private final String USER_AGENT = "Mozilla/5.0";
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public  String sendPost1() throws Exception {
+
+        // String urlParameters  = "title=Mikasa&startDate=20151102&location=NewYork&desc=HelloBob&type=private&rate=4.5&tag=HELLO";
+        String urlParameters=parameter;
+        byte[] postData = urlParameters.getBytes("UTF-8");
+        int postDataLength = postData.length;
+        URL url;
+        HttpURLConnection urlConn;
+        DataOutputStream printout;
+        DataInputStream input;
+        url = new URL("http://203.151.92.175:8080/getScheduleOne");
+        urlConn = (HttpURLConnection) url.openConnection();
+        urlConn.setDoInput(true);
+        urlConn.setDoOutput(true);
+        urlConn.setUseCaches(false);
+        urlConn.setInstanceFollowRedirects(false);
+        urlConn.setRequestMethod("POST");
+        urlConn.setRequestProperty("charset", "utf-8");
+        urlConn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+        urlConn.setRequestProperty("User-Agent", USER_AGENT);
+        urlConn.connect();
+        DataOutputStream wr = new DataOutputStream(urlConn.getOutputStream());
+        wr.write(postData);
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(urlConn.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        urlConn.disconnect();
+        return response.toString();
+
+
+
+    }
+
+    private class HttpTask extends AsyncTask<String, Integer, String> {
+
+        protected String doInBackground(String... params)   {
+            try {
+                sendPost1();
+                // postData();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "result";
+        }
+
+        protected void onProgressUpdate(Integer... values) {
+
+        }
+
+        protected void onPostExecute(String result)  {
+
+        }
+    }
 }
