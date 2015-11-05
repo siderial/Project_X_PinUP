@@ -9,10 +9,83 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class AddEvent extends AppCompatActivity {
 
     private Toolbar toolbar;
+
+    //start date
+    Button btsd;
+    int y,m,d;
+    static final int idd=0;
+    TextView sd;
+
+    //start time
+    Button btst;
+    int ho ,mi;
+    static final int idt=1;
+    TextView st;
+
+    //end date
+    Button btsd2;
+    int y2,m2,d2;
+    static final int idd2=2;
+    TextView sd2;
+
+    //end time
+    Button btst2;
+    int ho2 ,mi2;
+    static final int idt2=3;
+    TextView st2;
+
+    Button bp;
+
+    //------------------------------------------------------------------------------------------
+    public void showDialogOnButtonClick(){
+        btsd = (Button)findViewById(R.id.buttonSd);
+        sd=(TextView)findViewById(R.id.textSd);
+        btsd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(idd);
+            }
+        });
+    }
+    public void showDialogOnButtonClick2(){
+        btsd2 = (Button)findViewById(R.id.buttonEd);
+        sd2=(TextView)findViewById(R.id.textEd);
+        btsd2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(idd2);
+            }
+        });
+    }
+
+    public  void  showTimePickerDialog(){
+        btst=(Button)findViewById(R.id.buttonSt);
+        st=(TextView)findViewById(R.id.textSt);
+        btst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(idt);
+            }
+        });
+    }
+
+    public  void  showTimePickerDialog2(){
+        btst2=(Button)findViewById(R.id.buttonEt);
+        st2=(TextView)findViewById(R.id.textEt);
+        btst2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(idt2);
+            }
+        });
+    }
+//------------------------------------------------------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,14 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@color/colorTextPrimary"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorTextPrimary">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_margin="16dp"
+            android:background="@color/colorTextPrimary"
 
             >
 
@@ -30,14 +31,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.76"
                 android:layout_margin="1dp"
-                android:src="@mipmap/ic_untitle"
+                android:src="@drawable/ic_untitle"
+
                 />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_weight="0.32">
+                android:layout_weight="0.32"
+               >
 
                 <TextView
                     android:id="@+id/user_name"
@@ -45,30 +49,31 @@
                     android:layout_height="wrap_content"
                     android:text="Aria  Undine"
                     android:textSize="24sp"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:textColor="@color/purpleA100"
+                    android:layout_marginLeft="8dp"/>
 
                 <TextView
                     android:id="@+id/user_des"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="I'm Tester.T^T 0__________________________0 Heyyyyyyyyyyyyyy"
+                    android:text="I'm Tester.T^T  Heyyyyyyyyyyyyyy canyou hear me?"
                     android:padding="8dp"
                     android:textSize="16sp"
                     android:textColor="@color/colorDivider"
                   />
 
-
             </LinearLayout>
+
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/lightGray300"
           />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorDivider"
+            android:background="@color/lightGray200"
            />
     </LinearLayout>
 
@@ -95,7 +100,7 @@
            />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="@color/lightGray"/>
 
         <TextView
@@ -112,7 +117,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="@color/lightGray"/>
 
         <TextView
@@ -128,7 +133,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="@color/lightGray"/>
 
         <TextView
@@ -144,8 +149,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="@color/lightGray"/>
+
+
 
 
     </LinearLayout>

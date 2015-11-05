@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.undine.project_ooad.HelpAndFeedback">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/app_bar"
+        app:layout_scrollFlags="scroll"
+        style="@style/AppTheme.PopupOverlay"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Events"
+        android:textSize="30sp"
+        android:layout_below="@id/toolbar"/>
+
+</RelativeLayout>

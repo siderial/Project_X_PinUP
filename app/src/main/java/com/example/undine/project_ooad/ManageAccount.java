@@ -6,19 +6,15 @@ import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ManageAccount extends Fragment {
+
 
     private TextView changePass;
     private TextView deleteAcc;
@@ -53,7 +49,7 @@ public class ManageAccount extends Fragment {
             @Override
             public void onClick(View v) {
                 myEvents.setBackground(getResources().getDrawable(R.drawable.background_select_on_click));
-                startActivity(new Intent(view.getContext(), ChangePassword.class));
+                startActivity(new Intent(view.getContext(), MyEventsCollection.class));
 
             }
         });
@@ -73,7 +69,7 @@ public class ManageAccount extends Fragment {
             @Override
             public void onClick(View v) {
                 helpAndFeed.setBackground(getResources().getDrawable(R.drawable.background_select_on_click));
-                startActivity(new Intent(view.getContext(), ChangePassword.class));
+                startActivity(new Intent(view.getContext(), HelpAndFeedback.class));
 
             }
         });
@@ -86,6 +82,5 @@ public class ManageAccount extends Fragment {
     public void startActivity(Intent intent) {
         super.startActivity(intent);
     }
-
 
 }

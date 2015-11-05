@@ -1,11 +1,16 @@
 package com.example.undine.project_ooad;
 
+import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ListView;
 
 public class Search extends AppCompatActivity {
 
@@ -20,6 +25,22 @@ public class Search extends AppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ListView l = (ListView)findViewById(R.id.listView);
+        String[] events={"eatinginginginging","sleepinginginginginging","homework ...","concert yoyo","eateateat",
+                "read a book","call hello world","swimming","CE Smart love ei","¡¾¡¾àÂ","homework ...",
+                "concert yoyo","homework ...","concert yoyo"};
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, events);
+        l.setAdapter(adapter);
+
+        final ImageButton ib=(ImageButton)findViewById(R.id.searchButton);
+        ib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Search.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
