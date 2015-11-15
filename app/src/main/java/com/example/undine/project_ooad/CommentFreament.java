@@ -1,10 +1,10 @@
 package com.example.undine.project_ooad;
 
-import android.app.Fragment;
 import android.app.Notification;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 15/11/2558.
  */
-public class CommentFreament extends Fragment{
+public class CommentFreament extends Fragment {
 
     public CommentFreament(){
     }
@@ -41,7 +41,7 @@ public class CommentFreament extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView=inflater.inflate(R.layout.fragment_new_feed, container, false);
+        View rootView=inflater.inflate(R.layout.activity_detail, container, false);
         mListView = (ListView) rootView.findViewById(R.id.listView);
         ArrayList<Comment> listContact ;
         //  ListView lv = (ListView)rootView.findViewById(R.id.listView);

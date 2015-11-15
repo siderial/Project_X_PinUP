@@ -18,25 +18,40 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity {
     private ViewHolder mViewHolder;
     private String parameter="";
     private String method="";
-    private ListView mListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+
         mListView = (ListView) findViewById(R.id.listView);
 
+        new SimpleTask().execute(URL + "getCommentByTopicID?topicID=80");
        final  String  title,
                 date,
                 location,
@@ -107,22 +122,24 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 method = "storePinup";
-                parameter ="accountID=776&date="+date.substring(0,4)+date.substring(5,7)+date.substring(8,10)+"&topicID=" + topicID+"&time="+ startTime;
+                parameter = "accountID=776&date=" + date.substring(0, 4) + date.substring(5, 7) + date.substring(8, 10) + "&topicID=" + topicID + "&time=" + startTime;
                 new HttpTask().execute();
-               // Toast.makeText(this,"topicID", Toast.LENGTH_LONG).show();
+                // Toast.makeText(this,"topicID", Toast.LENGTH_LONG).show();
             }
         });
 
-        final Button cm=(Button)findViewById(R.id.buttoncomment);
+        final Button cm=(Button) findViewById(R.id.buttoncomment);
         cm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText desc = (EditText) findViewById(R.id.editText2);
-                parameter = "desc=" + desc.getText().toString()+"&accountID=776&topicID="+topicID;
+                parameter = "desc=" + desc.getText().toString() + "&accountID=776&topicID=" + topicID;
                 method = "storeComment";
                 new HttpTask().execute();
             }
         });
+
+
 
 
    }
@@ -201,4 +218,72 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     //-----------------------------------------Get Comment-----------------------------------
+
+
+    public static final String URL = "http://203.151.92.175:8080/";
+    private ListView mListView;
+    private CommentAdapterFragment mAdapter;
+
+
+    private class SimpleTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            // Create Show ProgressBar
+        }
+
+        protected String doInBackground(String... urls) {
+            String result = "";
+            IOException ee;
+            Exception ex;
+            try {
+
+                HttpGet httpGet = new HttpGet(urls[0]);
+                HttpClient client = new DefaultHttpClient();
+
+                HttpResponse response = client.execute(httpGet);
+
+                int statusCode = response.getStatusLine().getStatusCode();
+
+                if (statusCode == 200) {
+                    InputStream inputStream = response.getEntity().getContent();
+                    BufferedReader reader = new BufferedReader
+                            (new InputStreamReader(inputStream));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result += line;
+                    }
+                }
+
+            } catch (ClientProtocolException e) {
+
+            } catch (IOException e) {
+                ee=e;
+            }catch (Exception e){
+                ex=e;
+            }
+            return result;
+        }
+
+        protected void onPostExecute(String jsonString) {
+            // Dismiss ProgressBar
+            showData(jsonString);
+        }
+    }
+
+    private void showData(String jsonString) {
+        Gson gson = new Gson();
+        JsonParser parser = new JsonParser();
+        JsonArray jArray = parser.parse(jsonString).getAsJsonArray();
+        ArrayList<Comment> comments = new ArrayList<>();
+
+        for (JsonElement obj : jArray){
+            Comment comment = gson.fromJson(obj,Comment.class);
+            comments.add(comment);
+        }
+
+        mAdapter = new CommentAdapterFragment(DetailActivity.this, comments);
+        mListView.setAdapter(mAdapter);
+
+    }
 }
