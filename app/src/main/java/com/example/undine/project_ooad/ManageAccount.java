@@ -1,7 +1,9 @@
 package com.example.undine.project_ooad;
 
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -36,6 +38,7 @@ public class ManageAccount extends Fragment {
 
         deleteAcc = (TextView) view.findViewById(R.id.go_delete_account);
         deleteAcc.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
                 deleteAcc.setBackground(getResources().getDrawable(R.drawable.background_select_on_click));
@@ -46,6 +49,7 @@ public class ManageAccount extends Fragment {
 
         myEvents = (TextView) view.findViewById(R.id.go_my_event);
         myEvents.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
                 myEvents.setBackground(getResources().getDrawable(R.drawable.background_select_on_click));
@@ -56,6 +60,7 @@ public class ManageAccount extends Fragment {
 
         logOut = (TextView) view.findViewById(R.id.go_log_out);
         logOut.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
                 logOut.setBackground(getResources().getDrawable(R.drawable.background_select_on_click));
@@ -66,6 +71,7 @@ public class ManageAccount extends Fragment {
 
         helpAndFeed = (TextView)view.findViewById(R.id.go_help);
         helpAndFeed.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
                 helpAndFeed.setBackground(getResources().getDrawable(R.drawable.background_select_on_click));

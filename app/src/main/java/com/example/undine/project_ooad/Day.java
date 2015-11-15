@@ -1,15 +1,11 @@
 package com.example.undine.project_ooad;
 
-
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -29,45 +25,32 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by Administrator on 6/11/2558.
  */
-public class NewFeed extends Fragment {
+public class Day extends AppCompatActivity {
 
-
-    public NewFeed() {
-        // Required empty public constructor
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView=inflater.inflate(R.layout.fragment_new_feed, container, false);
-        mListView = (ListView) rootView.findViewById(R.id.listView);
-        ArrayList<Event> listContact ;
-      //  ListView lv = (ListView)rootView.findViewById(R.id.listView);
-        //lv.setAdapter(new CustomAdapter(getActivity(), listContact));
-       new SimpleTask().execute(URL + "getTopicAll");
-
-
-        return rootView;
-
-    }
-
+    Toolbar toolbar;
     public static final String URL = "http://203.151.92.175:8080/";
     private ListView mListView;
-    private CustomAdapter mAdapter;
+    private CustomAdapterActivity mAdapter;
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_day);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        Bundle extra = getIntent().getExtras();
+        String forBackend = extra.getString("DATE");
+        Toast.makeText(this,forBackend,Toast.LENGTH_LONG).show();
+        mListView = (ListView) findViewById(R.id.listView);
+        new SimpleTask().execute(URL + "getPinOneDay?accountID=776&date=" + forBackend);
 
 
 
-
-
-       // new SimpleTask().execute(URL + "getTopicAll");
     }
 
     private class SimpleTask extends AsyncTask<String, Void, String> {
@@ -112,7 +95,12 @@ public class NewFeed extends Fragment {
 
         protected void onPostExecute(String jsonString) {
             // Dismiss ProgressBar
-            showData(jsonString);
+            try {
+                showData(jsonString);
+            }catch (Exception e){
+
+            }
+
         }
     }
 
@@ -155,26 +143,7 @@ public class NewFeed extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }*/
-        mAdapter = new CustomAdapter(getActivity(), events);
+        mAdapter = new CustomAdapterActivity(this, events);
         mListView.setAdapter(mAdapter);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object listItem = mListView.getItemAtPosition(position);
-                System.out.println(listItem);
-                Intent intent = new Intent(getContext(), DetailActivity.class);
-                Event en = (Event) listItem;
-                intent.putExtra("EVENT_TITLE", en.getNameTitle());
-                intent.putExtra("EVENT_DATE", en.getStartDate());
-                intent.putExtra("EVENT_LOCATE", en.getLocation());
-                intent.putExtra("EVENT_DES", en.getDescription());
-                intent.putExtra("EVENT_RATE", en.getRate());
-                intent.putExtra("TOPIC_ID",en.getTopicID());
-                intent.putExtra("START_TIME",en.getStartTime());
-                System.out.println(en.getDescription());
-                startActivity(intent);
-            }
-        });
     }
-
 }

@@ -48,6 +48,12 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".Day"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".DetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

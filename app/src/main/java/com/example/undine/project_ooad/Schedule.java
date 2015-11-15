@@ -45,7 +45,7 @@ public class Schedule extends Fragment {
     String monthString;
     String yearString;
     String forBackend;
-   public static String parameter;
+   public static String parameterSchedule;
 
 
     public Schedule() {
@@ -65,21 +65,25 @@ public class Schedule extends Fragment {
                      @Override
                      public void onDateSelected(MaterialCalendarView widget, CalendarDay date, boolean selected) {
                          dayString = plusZero(materialCalendarView.getSelectedDate().getDay());
-                         monthString = plusZero(materialCalendarView.getSelectedDate().getMonth());
+                         monthString = plusZero(materialCalendarView.getSelectedDate().getMonth()+1);
                          yearString = "" + materialCalendarView.getSelectedDate().getYear();
                          forBackend = yearString + monthString + dayString;
+
                          Toast.makeText(view.getContext(), forBackend,
                                  Toast.LENGTH_LONG).show();
 
 
-                        startActivity(new Intent(view.getContext(), ChangePassword.class));
+                       Intent intent = new Intent(getActivity(), Day.class);
+                      intent.putExtra("DATE",forBackend);
+                         startActivity(intent);
+
                      }
                  });
 
                 materialCalendarView.setArrowColor(getResources().getColor(R.color.purpleA100));
 
-        parameter="accountID=123&date="+yearString+monthString+dayString;
-        new HttpTask().execute();
+        parameterSchedule="accountID=123&date="+yearString+monthString+dayString;
+     //   new HttpTask().execute();
 
         return view;
 
@@ -105,7 +109,7 @@ public class Schedule extends Fragment {
     public  String sendPost1() throws Exception {
 
         // String urlParameters  = "title=Mikasa&startDate=20151102&location=NewYork&desc=HelloBob&type=private&rate=4.5&tag=HELLO";
-        String urlParameters=parameter;
+        String urlParameters=parameterSchedule;
         byte[] postData = urlParameters.getBytes("UTF-8");
         int postDataLength = postData.length;
         URL url;
@@ -162,4 +166,6 @@ public class Schedule extends Fragment {
 
         }
     }
+
+
 }

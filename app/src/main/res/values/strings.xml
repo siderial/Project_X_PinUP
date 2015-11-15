@@ -8,4 +8,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_add_event">AddEvent</string>
     <string name="action_search">search here</string>
+
+    <string name="textTitle">Title</string>
+    <string name="textDate">Date</string>
+    <string name="textLocation">Location</string>
+    <string name="textDescription">Description</string>
+    <string name="textContact">083-654-4921</string>
+    <string name="textRate">5.0</string>
 </resources>
