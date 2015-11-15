@@ -1,15 +1,18 @@
 package com.example.undine.project_ooad;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -25,10 +28,14 @@ import java.net.URL;
 public class DetailActivity extends AppCompatActivity {
     private ViewHolder mViewHolder;
     private String parameter="";
+    private String method="";
+    private ListView mListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        mListView = (ListView) findViewById(R.id.listView);
 
        final  String  title,
                 date,
@@ -55,6 +62,8 @@ public class DetailActivity extends AppCompatActivity {
                 rate = extras.getDouble("EVENT_RATE");
                 topicID = extras.getInt("TOPIC_ID");
                 startTime = extras.getString("START_TIME");
+
+
             }
         } else {
             title= (String)savedInstanceState.getSerializable("EVENT_TITLE");
@@ -80,6 +89,11 @@ public class DetailActivity extends AppCompatActivity {
         ratebar.setRating((float) rate);
        Toast.makeText(this,""+topicID+"   "+startTime+"   "+date, Toast.LENGTH_LONG).show();
 
+        Intent intent = new Intent(DetailActivity.this, CommentFreament.class);
+        intent.putExtra("Topic_ID", topicID);
+        //startActivity(intent);
+
+        //Pin
         final Switch ib=(Switch)findViewById(R.id.switchPin);
 //        if (ib.isChecked()) {
 //            parameter = "accountID=111&datetime=" + date + "&topicID=" + topicID ;
@@ -92,11 +106,25 @@ public class DetailActivity extends AppCompatActivity {
         ib.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                method = "storePinup";
                 parameter ="accountID=776&date="+date.substring(0,4)+date.substring(5,7)+date.substring(8,10)+"&topicID=" + topicID+"&time="+ startTime;
                 new HttpTask().execute();
                // Toast.makeText(this,"topicID", Toast.LENGTH_LONG).show();
             }
         });
+
+        final Button cm=(Button)findViewById(R.id.buttoncomment);
+        cm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText desc = (EditText) findViewById(R.id.editText2);
+                parameter = "desc=" + desc.getText().toString()+"&accountID=776&topicID="+topicID;
+                method = "storeComment";
+                new HttpTask().execute();
+            }
+        });
+
+
    }
     private static class ViewHolder{
         ImageView thumbnail;
@@ -121,7 +149,7 @@ public class DetailActivity extends AppCompatActivity {
         HttpURLConnection urlConn;
         DataOutputStream printout;
         DataInputStream input;
-        url = new URL("http://203.151.92.175:8080/storePinup");
+        url = new URL("http://203.151.92.175:8080/"+method);
         urlConn = (HttpURLConnection) url.openConnection();
         urlConn.setDoInput(true);
         urlConn.setDoOutput(true);
@@ -172,4 +200,5 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    //-----------------------------------------Get Comment-----------------------------------
 }
