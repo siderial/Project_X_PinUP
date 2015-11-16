@@ -1,9 +1,12 @@
 package com.example.undine.project_ooad;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -52,6 +55,8 @@ public class Day extends AppCompatActivity {
 
 
     }
+
+
 
     private class SimpleTask extends AsyncTask<String, Void, String> {
 
@@ -117,33 +122,9 @@ public class Day extends AppCompatActivity {
             events.add(event);
         }
 
-        //StringBuilder builder = new StringBuilder();
-        //builder.setLength(0);
-        //List<Post> posts = blog.getPosts();
-        //List<Event> events = map.getEvents();
 
-        /*for (Event event : events) {
-            builder.append(event.getDescription());
-            builder.append("\n");
-            builder.append(event.getLocation());
-            builder.append("\n\n");
-        }*/
-
-        //mAdapter = new CustomAdapter(this, posts);
-        //mListView.setAdapter(mAdapter);
-        //Toast.makeText(this, jsonString, Toast.LENGTH_LONG).show();
-        //Toast.makeText(this, builder.toString(), Toast.LENGTH_LONG).show();
-        /*
-        try {
-            JSONArray array = new JSONArray(jsonString);
-            JSONObject title = array.getJSONObject(0);
-
-            String ss= title.getString("nameTitle");
-            Log.v("AAAAAAAAAA", ss);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
         mAdapter = new CustomAdapterActivity(this, events);
         mListView.setAdapter(mAdapter);
+
     }
 }

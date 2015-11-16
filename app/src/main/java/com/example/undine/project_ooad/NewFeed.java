@@ -129,32 +129,6 @@ public class NewFeed extends Fragment {
             events.add(event);
         }
 
-        //StringBuilder builder = new StringBuilder();
-        //builder.setLength(0);
-        //List<Post> posts = blog.getPosts();
-        //List<Event> events = map.getEvents();
-
-        /*for (Event event : events) {
-            builder.append(event.getDescription());
-            builder.append("\n");
-            builder.append(event.getLocation());
-            builder.append("\n\n");
-        }*/
-
-        //mAdapter = new CustomAdapter(this, posts);
-        //mListView.setAdapter(mAdapter);
-        //Toast.makeText(this, jsonString, Toast.LENGTH_LONG).show();
-        //Toast.makeText(this, builder.toString(), Toast.LENGTH_LONG).show();
-        /*
-        try {
-            JSONArray array = new JSONArray(jsonString);
-            JSONObject title = array.getJSONObject(0);
-
-            String ss= title.getString("nameTitle");
-            Log.v("AAAAAAAAAA", ss);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
         mAdapter = new CustomAdapter(getActivity(), events);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
