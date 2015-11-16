@@ -47,6 +47,7 @@ public class DetailActivity extends AppCompatActivity {
     private ViewHolder mViewHolder;
     private String parameter="";
     private String method="";
+    private SimpleTask tk=new SimpleTask();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +82,6 @@ public class DetailActivity extends AppCompatActivity {
                 rate = extras.getDouble("EVENT_RATE");
                 topicID = extras.getInt("TOPIC_ID");
                 startTime = extras.getString("START_TIME");
-
-
             }
         } else {
             title= (String)savedInstanceState.getSerializable("EVENT_TITLE");
@@ -122,26 +121,20 @@ public class DetailActivity extends AppCompatActivity {
                 // Toast.makeText(this,"topicID", Toast.LENGTH_LONG).show();
             }
         });
-
-
         //------------get comment---------------------------------------------------
         final Button cm=(Button) findViewById(R.id.buttoncomment);
         cm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 EditText desc = (EditText) findViewById(R.id.editText2);
                 parameter = "desc=" + desc.getText().toString() + "&accountID=776&topicID=" + topicID;
                 method = "storeComment";
                 new HttpTask().execute();
-//                Intent intent2 = new Intent(DetailActivity.this, DetailActivity.class);
-//                startActivity(intent2);
+                tk.execute(URL + "getCommentByTopicID?topicID=" + topicID);
+                desc.setText("");
             }
         });
-
-        new SimpleTask().execute(URL + "getCommentByTopicID?topicID=" + topicID);
-
-
+       new SimpleTask().execute(URL + "getCommentByTopicID?topicID=" + topicID);
    }
     private static class ViewHolder{
         ImageView thumbnail;
@@ -227,7 +220,6 @@ public class DetailActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            // Create Show ProgressBar
         }
 
         protected String doInBackground(String... urls) {
@@ -264,7 +256,6 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(String jsonString) {
-            // Dismiss ProgressBar
             showData(jsonString);
         }
     }
@@ -281,6 +272,7 @@ public class DetailActivity extends AppCompatActivity {
 
         mAdapter = new CommentAdapterFragment(DetailActivity.this, comments);
         mListView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
 
 
         //----------------------------set parameter layout-----------------------------------------
@@ -290,13 +282,9 @@ public class DetailActivity extends AppCompatActivity {
             listItem.measure(0, 0);
             totalHeight += listItem.getMeasuredHeight();
         }
-
         ViewGroup.LayoutParams params = mListView.getLayoutParams();
         params.height = totalHeight + (mListView.getDividerHeight() * (mListView.getCount() - 1));
         mListView.setLayoutParams(params);
         mListView.requestLayout();
-
-
-
     }
 }

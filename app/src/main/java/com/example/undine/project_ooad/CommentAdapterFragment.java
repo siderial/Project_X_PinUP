@@ -34,13 +34,6 @@ public class CommentAdapterFragment extends BaseAdapter {
         mPosts=results;
     }
 
-   /* public CustomAdapter(Activity activity, List<Event> posts) {
-        mInflater = (LayoutInflater) activity.getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
-        mPosts = posts;
-        mActivity = activity;
-    }*/
-
     @Override
     public int getCount() {
         return mPosts.size();
@@ -76,7 +69,6 @@ public class CommentAdapterFragment extends BaseAdapter {
 
         mViewHolder.author.setText(mPost.getAccount().getName());
         mViewHolder.title.setText(mPost.getDescription()+"");
-        //mViewHolder.date.setText(mPost.getStartDateString());
 
         return convertView;
     }

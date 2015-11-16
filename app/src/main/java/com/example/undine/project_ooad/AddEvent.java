@@ -499,16 +499,5 @@ public class AddEvent extends AppCompatActivity {
         result="";
         return result;
 
-
-
-
-//        for(int i=0;i<time.length();i++){
-//            if(!(time.substring(i,i+1).equals(":"))){
-//
-//
-//
-//                result=result+time.substring(i,i+1);
-//            }
-//        }
     }
 }

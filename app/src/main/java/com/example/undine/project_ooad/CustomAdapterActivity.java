@@ -63,36 +63,9 @@ public class CustomAdapterActivity extends BaseAdapter {
 
         mPost = mPosts.get(position);
 
-        /*if (mPost.getThumbnail() != null) {
-
-            *//*new AsyncTask<Void, Void, Void>() {
-                @Override
-                protected Void doInBackground(Void... params) {
-                    try {
-                        URL url = new URL(mPost.getThumbnail());
-                        mBitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-
-                    } catch (MalformedURLException e) {
-
-                    } catch (IOException e) {
-
-                    }
-                    return null;
-                }
-            }.execute();*//*
-
-
-            mViewHolder.thumbnail.setImageBitmap(mBitmap);
-        }
-        Picasso.with(mActivity)
-            .load(mPost.getThumbnail())
-            .into(mViewHolder.thumbnail);
-*/
 
         mViewHolder.title.setText(mPost.getNameTitle());
         mViewHolder.author.setText(mPost.getStartDate()+" to "+mPost.getEndDate());
-        //mViewHolder.date.setText(mPost.getStartDateString());
-
         return convertView;
     }
 

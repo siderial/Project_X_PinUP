@@ -40,16 +40,8 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setTitle("");
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      //  setContentView(R.layout.activity_main);
 
         mListView = (ListView) findViewById(R.id.listView);
-
-
-
 
         final ImageButton ib=(ImageButton)findViewById(R.id.searchButton);
         ib.setOnClickListener(new View.OnClickListener() {
@@ -167,33 +159,6 @@ public class Search extends AppCompatActivity {
             Event event = gson.fromJson(obj,Event.class);
             events.add(event);
         }
-
-        //StringBuilder builder = new StringBuilder();
-        //builder.setLength(0);
-        //List<Post> posts = blog.getPosts();
-        //List<Event> events = map.getEvents();
-
-        /*for (Event event : events) {
-            builder.append(event.getDescription());
-            builder.append("\n");
-            builder.append(event.getLocation());
-            builder.append("\n\n");
-        }*/
-
-        //mAdapter = new CustomAdapter(this, posts);
-        //mListView.setAdapter(mAdapter);
-        //Toast.makeText(this, jsonString, Toast.LENGTH_LONG).show();
-        //Toast.makeText(this, builder.toString(), Toast.LENGTH_LONG).show();
-        /*
-        try {
-            JSONArray array = new JSONArray(jsonString);
-            JSONObject title = array.getJSONObject(0);
-
-            String ss= title.getString("nameTitle");
-            Log.v("AAAAAAAAAA", ss);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
         mAdapter = new CustomAdapterActivity(this, events);
         mListView.setAdapter(mAdapter);
     }
