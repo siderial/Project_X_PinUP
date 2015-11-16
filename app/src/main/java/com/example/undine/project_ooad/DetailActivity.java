@@ -5,15 +5,19 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +55,7 @@ public class DetailActivity extends AppCompatActivity {
 
         mListView = (ListView) findViewById(R.id.listView);
 
-        new SimpleTask().execute(URL + "getCommentByTopicID?topicID=80");
+
        final  String  title,
                 date,
                 location,
@@ -104,19 +108,10 @@ public class DetailActivity extends AppCompatActivity {
         ratebar.setRating((float) rate);
        Toast.makeText(this,""+topicID+"   "+startTime+"   "+date, Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(DetailActivity.this, CommentFreament.class);
-        intent.putExtra("Topic_ID", topicID);
-        //startActivity(intent);
-
-        //Pin
+        //------------------Pin--------------------------------------------------------------------
         final Switch ib=(Switch)findViewById(R.id.switchPin);
-//        if (ib.isChecked()) {
-//            parameter = "accountID=111&datetime=" + date + "&topicID=" + topicID ;
-//            new HttpTask().execute();
-//            Toast.makeText(this,""+topicID, Toast.LENGTH_LONG).show();
-//        }
-        int i=111;
 
+        int i=111;
        // parameter="accountID=765&date=20151113&topicID="+topicID+"&time=23:27:00";
         ib.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -128,18 +123,23 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+
+        //------------get comment---------------------------------------------------
         final Button cm=(Button) findViewById(R.id.buttoncomment);
         cm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 EditText desc = (EditText) findViewById(R.id.editText2);
                 parameter = "desc=" + desc.getText().toString() + "&accountID=776&topicID=" + topicID;
                 method = "storeComment";
                 new HttpTask().execute();
+//                Intent intent2 = new Intent(DetailActivity.this, DetailActivity.class);
+//                startActivity(intent2);
             }
         });
 
-
+        new SimpleTask().execute(URL + "getCommentByTopicID?topicID=" + topicID);
 
 
    }
@@ -191,8 +191,6 @@ public class DetailActivity extends AppCompatActivity {
         in.close();
         urlConn.disconnect();
         return response.toString();
-
-
 
     }
 
@@ -276,7 +274,6 @@ public class DetailActivity extends AppCompatActivity {
         JsonParser parser = new JsonParser();
         JsonArray jArray = parser.parse(jsonString).getAsJsonArray();
         ArrayList<Comment> comments = new ArrayList<>();
-
         for (JsonElement obj : jArray){
             Comment comment = gson.fromJson(obj,Comment.class);
             comments.add(comment);
@@ -284,6 +281,22 @@ public class DetailActivity extends AppCompatActivity {
 
         mAdapter = new CommentAdapterFragment(DetailActivity.this, comments);
         mListView.setAdapter(mAdapter);
+
+
+        //----------------------------set parameter layout-----------------------------------------
+        int totalHeight = 0;
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            View listItem = mAdapter.getView(i, null, mListView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = mListView.getLayoutParams();
+        params.height = totalHeight + (mListView.getDividerHeight() * (mListView.getCount() - 1));
+        mListView.setLayoutParams(params);
+        mListView.requestLayout();
+
+
 
     }
 }
